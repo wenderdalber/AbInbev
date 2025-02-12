@@ -1,4 +1,5 @@
-﻿using Ambev.DeveloperEvaluation.Domain.Entities;
+﻿using Ambev.DeveloperEvaluation.Domain.Common.Dto;
+using Ambev.DeveloperEvaluation.Domain.Entities;
 using AutoMapper;
 using System;
 using System.Collections.Generic;

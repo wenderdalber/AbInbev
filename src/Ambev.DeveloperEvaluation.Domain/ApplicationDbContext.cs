@@ -20,11 +20,6 @@ public class ApplicationDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<User>()
-            .HasOne(u => u.Address)
-            .WithOne()
-            .HasForeignKey<Address>(a => a.Id);
-
         modelBuilder.Entity<Address>()
             .HasOne(a => a.Geolocation)
             .WithOne()
