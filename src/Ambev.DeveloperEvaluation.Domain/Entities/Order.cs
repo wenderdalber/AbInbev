@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Ambev.DeveloperEvaluation.Domain.Events;
+using MediatR;
+using System.ComponentModel.DataAnnotations;
 
 namespace Ambev.DeveloperEvaluation.Domain.Entities;
 
@@ -7,6 +9,33 @@ namespace Ambev.DeveloperEvaluation.Domain.Entities;
 /// </summary>
 public class Order
 {
+    private readonly IMediator _mediator;
+
+    public Order(IMediator mediator)
+    {
+        _mediator = mediator;
+    }
+
+    public async Task CreateAsync()
+    {
+        await _mediator.Publish(new SaleCreatedEvent(this));
+    }
+
+    public async Task ModifyAsync()
+    {
+        await _mediator.Publish(new SaleModifiedEvent(this));
+    }
+
+    public async Task CancelAsync()
+    {
+        await _mediator.Publish(new SaleCancelledEvent(this));
+    }
+
+    public async Task CancelItemAsync(Item item)
+    {
+        await _mediator.Publish(new ItemCancelledEvent(item, this));
+    }
+
     /// <summary>
     /// Gets or sets the unique identifier for the order.
     /// </summary>
